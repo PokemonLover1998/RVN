@@ -1,0 +1,891 @@
+
+IEEEexample.bib 
+V1.12 (2007/01/11)
+Copyright (c) 2002-2007 by Michael Shell
+See: http://www.michaelshell.org/
+for current contact information.
+
+This is an example BibTeX database for the official IEEEtran.bst
+BibTeX style file.
+
+Some entries call strings that are defined in the IEEEabrv.bib file.
+Therefore, IEEEabrv.bib should be loaded prior to this file. 
+Usage: 
+
+\bibliographystyle{./IEEEtran}
+\bibliography{./IEEEabrv,./IEEEexample}
+
+
+Support sites:
+http://www.michaelshell.org/tex/ieeetran/
+http://www.ctan.org/tex-archive/macros/latex/contrib/IEEEtran/
+and/or
+http://www.ieee.org/
+
+*************************************************************************
+Legal Notice:
+This code is offered as-is without any warranty either expressed or
+implied; without even the implied warranty of MERCHANTABILITY or
+FITNESS FOR A PARTICULAR PURPOSE! 
+User assumes all risk.
+In no event shall IEEE or any contributor to this code be liable for
+any damages or losses, including, but not limited to, incidental,
+consequential, or any other damages, resulting from the use or misuse
+of any information contained here.
+
+All comments are the opinions of their respective authors and are not
+necessarily endorsed by the IEEE.
+
+This work is distributed under the LaTeX Project Public License (LPPL)
+( http://www.latex-project.org/ ) version 1.3, and may be freely used,
+distributed and modified. A copy of the LPPL, version 1.3, is included
+in the base LaTeX documentation of all distributions of LaTeX released
+2003/12/01 or later.
+Retain all contribution notices and credits.
+** Modified files should be clearly indicated as such, including  **
+** renaming them and changing author support contact information. **
+
+File list of work: IEEEabrv.bib, IEEEfull.bib, IEEEexample.bib,
+                   IEEEtran.bst, IEEEtranS.bst, IEEEtranSA.bst,
+                   IEEEtranN.bst, IEEEtranSN.bst, IEEEtran_bst_HOWTO.pdf
+*************************************************************************
+
+
+Note that, because the example references were taken from actual IEEE
+publications, these examples do not always contain the full amount
+of information that may be desirable (for use with other BibTeX styles).
+In particular, full names (not abbreviated with initials) should be
+entered whenever possible as some (non-IEEE) bibliography styles use
+full names. IEEEtran.bst will automatically abbreviate when it encounters
+full names.
+
+
+%%%%% references of MODELS %%%%%
+% LLM
+@inproceedings{morales2024dsl,
+  title={A DSL for testing LLMs for fairness and bias},
+  author={Morales, Sergio and Claris{\'o}, Robert and Cabot, Jordi},
+  booktitle={Proceedings of the ACM/IEEE 27th International Conference on Model Driven Engineering Languages and Systems},
+  pages={203--213},
+  year={2024}
+}
+
+@inproceedings{chen2023automated,
+  title={Automated domain modeling with large language models: A comparative study},
+  author={Chen, Kua and Yang, Yujing and Chen, Boqi and L{\'o}pez, Jos{\'e} Antonio Hern{\'a}ndez and Mussbacher, Gunter and Varr{\'o}, D{\'a}niel},
+  booktitle={2023 ACM/IEEE 26th International Conference on Model Driven Engineering Languages and Systems (MODELS)},
+  pages={162--172},
+  year={2023},
+  organization={IEEE}
+}
+
+% Intrusion detection (enhanced security)
+@inproceedings{ayoughi2024enhancing,
+  title={Enhancing Automata Learning with Statistical Machine Learning: A Network Security Case Study},
+  author={Ayoughi, Negin and Nejati, Shiva and Sabetzadeh, Mehrdad and Saavedra, Patricio},
+  booktitle={Proceedings of the ACM/IEEE 27th International Conference on Model Driven Engineering Languages and Systems},
+  pages={172--182},
+  year={2024}
+}
+
+@inproceedings{weber2024model,
+  title={Model Everything but with Intellectual Property Protection-The Deltachain Approach},
+  author={Weber, Thomas and Weber, Sebastian},
+  booktitle={Proceedings of the ACM/IEEE 27th International Conference on Model Driven Engineering Languages and Systems},
+  pages={49--56},
+  year={2024}
+}
+
+% IoT
+@inproceedings{naveed2024towards,
+  title={Towards Runtime Monitoring for Responsible Machine Learning using Model-driven Engineering},
+  author={Naveed, Hira and Grundy, John and Arora, Chetan and Khalajzadeh, Hourieh and Haggag, Omar},
+  booktitle={Proceedings of the ACM/IEEE 27th International Conference on Model Driven Engineering Languages and Systems},
+  pages={195--202},
+  year={2024}
+}
+%%%%% end %%%%%
+
+%%%%% some review about NN verification %%%%%
+
+@article{wang2024survey,
+  title={A survey of neural network robustness assessment in image recognition},
+  author={Wang, Jie and Ai, Jun and Lu, Minyan and Su, Haoran and Yu, Dan and Zhang, Yutao and Zhu, Junda and Liu, Jingyu},
+  journal={arXiv preprint arXiv:2404.08285},
+  year={2024}
+}
+
+@article{jay1981gender,
+  title={Gender and dichotomy},
+  author={Jay, Nancy},
+  journal={Feminist studies},
+  volume={7},
+  number={1},
+  pages={38--56},
+  year={1981},
+  publisher={JSTOR}
+}
+
+@article{kaufmann2020deep,
+  title={Deep drone acrobatics},
+  author={Kaufmann, Elia and Loquercio, Antonio and Ranftl, Ren{\'e} and M{\"u}ller, Matthias and Koltun, Vladlen and Scaramuzza, Davide},
+  journal={arXiv preprint arXiv:2006.05768},
+  year={2020}
+}
+
+@inproceedings{DBLP:conf/cav/HuangKWW17,
+  author    = {Xiaowei Huang and
+               Marta Kwiatkowska and
+               Sen Wang and
+               Min Wu},
+  editor    = {Rupak Majumdar and
+               Viktor Kuncak},
+  title     = {Safety Verification of Deep Neural Networks},
+  booktitle = {Computer Aided Verification - 29th International Conference, {CAV}
+               2017, Heidelberg, Germany, July 24-28, 2017, Proceedings, Part {I}},
+  series    = {Lecture Notes in Computer Science},
+  volume    = {10426},
+  pages     = {3--29},
+  publisher = {Springer},
+  year      = {2017},
+  url       = {https://doi.org/10.1007/978-3-319-63387-9\_1},
+  timestamp = {Wed, 22 Dec 2021 17:17:02 +0100},
+  biburl    = {https://dblp.org/rec/conf/cav/HuangKWW17.bib},
+  bibsource = {dblp computer science bibliography, https://dblp.org}
+}
+
+@article{DBLP:journals/csr/HuangKRSSTWY20,
+  author    = {Xiaowei Huang and
+               Daniel Kroening and
+               Wenjie Ruan and
+               James Sharp and
+               Youcheng Sun and
+               Emese Thamo and
+               Min Wu and
+               Xinping Yi},
+  title     = {A survey of safety and trustworthiness of deep neural networks: Verification,
+               testing, adversarial attack and defence, and interpretability},
+  journal   = {Comput. Sci. Rev.},
+  volume    = {37},
+  pages     = {100270},
+  year      = {2020},
+  url       = {https://doi.org/10.1016/j.cosrev.2020.100270},
+  timestamp = {Sat, 09 Apr 2022 12:28:57 +0200},
+  biburl    = {https://dblp.org/rec/journals/csr/HuangKRSSTWY20.bib},
+  bibsource = {dblp computer science bibliography, https://dblp.org}
+}
+
+% CLEVER
+@article{weng2018evaluating,
+  title={Evaluating the robustness of neural networks: An extreme value theory approach},
+  author={Weng, Tsui-Wei and Zhang, Huan and Chen, Pin-Yu and Yi, Jinfeng and Su, Dong and Gao, Yupeng and Hsieh, Cho-Jui and Daniel, Luca},
+  journal={arXiv preprint arXiv:1801.10578},
+  year={2018}
+}
+
+@article{morgulis2019fooling,
+  title={Fooling a real car with adversarial traffic signs},
+  author={Morgulis, Nir and Kreines, Alexander and Mendelowitz, Shachar and Weisglass, Yuval},
+  journal={arXiv preprint arXiv:1907.00374},
+  year={2019}
+}
+
+@inproceedings{tang2023boosting,
+  title={Boosting multi-neuron convex relaxation for neural network verification},
+  author={Tang, Xuezhou and Zheng, Ye and Liu, Jiaxiang},
+  booktitle={International Static Analysis Symposium},
+  pages={540--563},
+  year={2023},
+  organization={Springer}
+}
+
+@article{singh2019beyond,
+  title={Beyond the single neuron convex barrier for neural network certification},
+  author={Singh, Gagandeep and Ganvir, Rupanshu and P{\"u}schel, Markus and Vechev, Martin},
+  journal={Advances in Neural Information Processing Systems},
+  volume={32},
+  year={2019}
+}
+
+@article{bunel2020branch,
+  title={Branch and bound for piecewise linear neural network verification},
+  author={Bunel, Rudy and Lu, Jingyue and Turkaslan, Ilker and Torr, Philip HS and Kohli, Pushmeet and Kumar, M Pawan},
+  journal={Journal of Machine Learning Research},
+  volume={21},
+  number={42},
+  pages={1--39},
+  year={2020}
+}
+
+@article{xu2020fast,
+  title={Fast and complete: Enabling complete neural network verification with rapid and massively parallel incomplete verifiers},
+  author={Xu, Kaidi and Zhang, Huan and Wang, Shiqi and Wang, Yihan and Jana, Suman and Lin, Xue and Hsieh, Cho-Jui},
+  journal={arXiv preprint arXiv:2011.13824},
+  year={2020}
+}
+
+@inproceedings{katz2017reluplex,
+  title={Reluplex: An efficient SMT solver for verifying deep neural networks},
+  author={Katz, Guy and Barrett, Clark and Dill, David L and Julian, Kyle and Kochenderfer, Mykel J},
+  booktitle={Computer Aided Verification: 29th International Conference, CAV 2017, Heidelberg, Germany, July 24-28, 2017, Proceedings, Part I 30},
+  pages={97--117},
+  year={2017},
+  organization={Springer}
+}
+
+@article{ugare2023incremental,
+  title={Incremental verification of neural networks},
+  author={Ugare, Shubham and Banerjee, Debangshu and Misailovic, Sasa and Singh, Gagandeep},
+  journal={Proceedings of the ACM on Programming Languages},
+  volume={7},
+  number={PLDI},
+  pages={1920--1945},
+  year={2023},
+  publisher={ACM New York, NY, USA}
+}
+
+@inproceedings{tang2024improved,
+  title={Improved Incremental Verification for Neural Networks},
+  author={Tang, Xuezhou},
+  booktitle={International Symposium on Theoretical Aspects of Software Engineering},
+  pages={392--409},
+  year={2024},
+  organization={Springer}
+}
+
+@article{huang2020survey,
+  title={A survey of safety and trustworthiness of deep neural networks: Verification, testing, adversarial attack and defence, and interpretability},
+  author={Huang, Xiaowei and Kroening, Daniel and Ruan, Wenjie and Sharp, James and Sun, Youcheng and Thamo, Emese and Wu, Min and Yi, Xinping},
+  journal={Computer Science Review},
+  volume={37},
+  pages={100270},
+  year={2020},
+  publisher={Elsevier}
+}
+
+@article{singhbeyond,
+  title={Beyond the Single Neuron Convex Barrier for Neural Network Certification},
+  author={Singh, Gagandeep and Ganvir, Rupanshu and P{\"u}schel, Markus and Vechev, Martin}
+}
+
+@article{hossain2023deeppoly,
+  title={DeepPoly: deep learning-based polyps segmentation and classification for autonomous colonoscopy examination},
+  author={Hossain, Md Shakhawat and Rahman, Md Mahmudur and Syeed, M Mahbubul and Uddin, Mohammad Faisal and Hasan, Mahady and Hossain, Md Aulad and Ksibi, Amel and Jamjoom, Mona M and Ullah, Zahid and Samad, Md Abdus},
+  journal={IEEE Access},
+  volume={11},
+  pages={95889--95902},
+  year={2023},
+  publisher={IEEE}
+}
+
+@article{zheng2022multi,
+  title={Multi-path Back-propagation Method for Neural Network Verification.},
+  author={Zheng, Ye and Shi, Xiaomu and Liu, Jiaxiang},
+  journal={Int. J. Softw. Informatics},
+  volume={12},
+  number={4},
+  pages={377--401},
+  year={2022}
+}
+
+@inproceedings{henriksen2021deepsplit,
+  title={DEEPSPLIT: An Efficient Splitting Method for Neural Network Verification via Indirect Effect Analysis.},
+  author={Henriksen, Patrick and Lomuscio, Alessio},
+  booktitle={IJCAI},
+  pages={2549--2555},
+  year={2021}
+}
+%%%%% end %%%%%
+
+
+
+%%%%% 2.Background of testing %%%%%
+
+% PGD
+@article{madry2017towards,
+  title={Towards deep learning models resistant to adversarial attacks},
+  author={Madry, Aleksander and Makelov, Aleksandar and Schmidt, Ludwig and Tsipras, Dimitris and Vladu, Adrian},
+  journal={arXiv preprint arXiv:1706.06083},
+  year={2017}
+}
+
+
+%FGSM
+@article{goodfellow2014explaining,
+  title={Explaining and harnessing adversarial examples},
+  author={Goodfellow, Ian J and Shlens, Jonathon and Szegedy, Christian},
+  journal={arXiv preprint arXiv:1412.6572},
+  year={2014}
+}
+
+% BIM
+@incollection{kurakin2018adversarial,
+  title={Adversarial examples in the physical world},
+  author={Kurakin, Alexey and Goodfellow, Ian J and Bengio, Samy},
+  booktitle={Artificial intelligence safety and security},
+  pages={99--112},
+  year={2018},
+  publisher={Chapman and Hall/CRC}
+}
+
+%JSMA
+@article{qureshi2020adversarial,
+  title={An adversarial approach for intrusion detection systems using jacobian saliency map attacks (jsma) algorithm},
+  author={Qureshi, Ayyaz Ul Haq and Larijani, Hadi and Yousefi, Mehdi and Adeel, Ahsan and Mtetwa, Nhamoinesu},
+  journal={Computers},
+  volume={9},
+  number={3},
+  pages={58},
+  year={2020},
+  publisher={MDPI}
+}
+
+%C&W
+@article{du2021fast,
+  title={Fast C\&W: A fast adversarial attack algorithm to fool SAR target recognition with deep convolutional neural networks},
+  author={Du, Chuan and Huo, Chaoying and Zhang, Lei and Chen, Bo and Yuan, Yijun},
+  journal={IEEE Geoscience and Remote Sensing Letters},
+  volume={19},
+  pages={1--5},
+  year={2021},
+  publisher={IEEE}
+}
+
+% attack review 1
+@article{zhang2022artificial,
+  title={Artificial intelligence for remote sensing data analysis: A review of challenges and opportunities},
+  author={Zhang, Lefei and Zhang, Liangpei},
+  journal={IEEE Geoscience and Remote Sensing Magazine},
+  volume={10},
+  number={2},
+  pages={270--294},
+  year={2022},
+  publisher={IEEE}
+}
+
+%%%%% 2 end %%%%%
+
+%%%%% 3 IOT %%%%%
+
+% IoT cars 1
+@inproceedings{pacheco2016iot,
+  title={IoT Security Development Framework for building trustworthy Smart car services},
+  author={Pacheco, Jesus and Satam, Shalaka and Hariri, Salim and Grijalva, Clarisa and Berkenbrock, Helena},
+  booktitle={2016 IEEE Conference on Intelligence and Security Informatics (ISI)},
+  pages={237--242},
+  year={2016},
+  organization={IEEE}
+}
+
+% IoT cars 2
+@inproceedings{sathiyanarayanan2018smart,
+  title={Smart security system for vehicles using internet of things (IoT)},
+  author={Sathiyanarayanan, Mithileysh and Mahendra, Santosh and Vasu, Rajesh Babu},
+  booktitle={2018 Second International Conference on Green Computing and Internet of Things (ICGCIoT)},
+  pages={430--435},
+  year={2018},
+  organization={IEEE}
+}
+
+% drones 1
+@article{hassanalian2017classifications,
+  title={Classifications, applications, and design challenges of drones: A review},
+  author={Hassanalian, Mostafa and Abdelkefi, Abdessattar},
+  journal={Progress in Aerospace sciences},
+  volume={91},
+  pages={99--131},
+  year={2017},
+  publisher={Elsevier}
+}
+
+% drones 2
+@article{saunders2024autonomous,
+  title={Autonomous aerial robotics for package delivery: A technical review},
+  author={Saunders, Jack and Saeedi, Sajad and Li, Wenbin},
+  journal={Journal of Field Robotics},
+  volume={41},
+  number={1},
+  pages={3--49},
+  year={2024},
+  publisher={Wiley Online Library}
+}
+
+% IoT control systems
+@book{meyn2022control,
+  title={Control systems and reinforcement learning},
+  author={Meyn, Sean},
+  year={2022},
+  publisher={Cambridge University Press}
+}
+%%%%% 3 end %%%%%
+
+%%%%% 4 NNCS %%%%%
+
+@article{nubert2020safe,
+  title={Safe and fast tracking on a robot manipulator: Robust mpc and neural network control},
+  author={Nubert, Julian and K{\"o}hler, Johannes and Berenz, Vincent and Allg{\"o}wer, Frank and Trimpe, Sebastian},
+  journal={IEEE Robotics and Automation Letters},
+  volume={5},
+  number={2},
+  pages={3050--3057},
+  year={2020},
+  publisher={IEEE}
+}
+
+
+@article{abu2022deep,
+  title={Deep learning-based long-horizon MPC: robust, high performing, and computationally efficient control for PMSM drives},
+  author={Abu-Ali, Mohammad and Berkel, Felix and Manderla, Maximilian and Reimann, Sven and Kennel, Ralph and Abdelrahem, Mohamed},
+  journal={IEEE transactions on power electronics},
+  volume={37},
+  number={10},
+  pages={12486--12501},
+  year={2022},
+  publisher={IEEE}
+}
+
+@article{kohler2020computationally,
+  title={A computationally efficient robust model predictive control framework for uncertain nonlinear systems},
+  author={K{\"o}hler, Johannes and Soloperto, Raffaele and M{\"u}ller, Matthias A and Allg{\"o}wer, Frank},
+  journal={IEEE Transactions on Automatic Control},
+  volume={66},
+  number={2},
+  pages={794--801},
+  year={2020},
+  publisher={IEEE}
+}
+
+@article{liu2023modeling,
+  title={Modeling and control of robotic manipulators based on artificial neural networks: a review},
+  author={Liu, Zhaobing and Peng, Kerui and Han, Lvpeng and Guan, Shengchuang},
+  journal={Iranian Journal of Science and Technology, Transactions of Mechanical Engineering},
+  volume={47},
+  number={4},
+  pages={1307--1347},
+  year={2023},
+  publisher={Springer}
+}
+
+% observer
+@book{crary1990techniques,
+  title={Techniques of the Observer},
+  author={Crary, Jonathan},
+  year={1990},
+  publisher={MIT press Cambridge, MA}
+}
+
+@article{chen2015disturbance,
+  title={Disturbance-observer-based control and related methods—An overview},
+  author={Chen, Wen-Hua and Yang, Jun and Guo, Lei and Li, Shihua},
+  journal={IEEE Transactions on industrial electronics},
+  volume={63},
+  number={2},
+  pages={1083--1095},
+  year={2015},
+  publisher={IEEE}
+}
+
+@article{luenberger1971introduction,
+  title={An introduction to observers},
+  author={Luenberger, David},
+  journal={IEEE Transactions on automatic control},
+  volume={16},
+  number={6},
+  pages={596--602},
+  year={1971},
+  publisher={IEEE}
+}
+%%%%% 4 end %%%%%
+
+%%%%% 5 NNCS verification %%%%%
+
+% RA training 1
+@inproceedings{zhi2024unifying,
+  title={Unifying qualitative and quantitative safety verification of DNN-controlled systems},
+  author={Zhi, Dapeng and Wang, Peixin and Liu, Si and Ong, C-H Luke and Zhang, Min},
+  booktitle={International Conference on Computer Aided Verification},
+  pages={401--426},
+  year={2024},
+  organization={Springer}
+}
+
+% RA training 2
+@inproceedings{vzikelic2023learning,
+  title={Learning control policies for stochastic systems with reach-avoid guarantees},
+  author={{\v{Z}}ikeli{\'c}, {\DJ}or{\dj}e and Lechner, Mathias and Henzinger, Thomas A and Chatterjee, Krishnendu},
+  booktitle={Proceedings of the AAAI Conference on Artificial Intelligence},
+  volume={37},
+  number={10},
+  pages={11926--11935},
+  year={2023}
+}
+
+
+% Beta-CROWN
+@article{wang2021beta,
+  title={Beta-crown: Efficient bound propagation with per-neuron split constraints for neural network robustness verification},
+  author={Wang, Shiqi and Zhang, Huan and Xu, Kaidi and Lin, Xue and Jana, Suman and Hsieh, Cho-Jui and Kolter, J Zico},
+  journal={Advances in Neural Information Processing Systems},
+  volume={34},
+  pages={29909--29921},
+  year={2021}
+}
+
+% Xue Inner 2
+@inproceedings{xue2021reach,
+  title={Reach-avoid analysis for stochastic discrete-time systems},
+  author={Xue, Bai and Li, Renjue and Zhan, Naijun and Fr{\"a}nzle, Martin},
+  booktitle={2021 American Control Conference (ACC)},
+  pages={4879--4885},
+  year={2021},
+  organization={IEEE}
+}
+
+% Xue Inner
+@inproceedings{xue2020inner,
+  title={Inner-approximating reach-avoid sets for discrete-time polynomial systems},
+  author={Xue, Bai and Zhan, Naijun and Fr{\"a}nzle, Martin},
+  booktitle={2020 59th IEEE Conference on Decision and Control (CDC)},
+  pages={867--873},
+  year={2020},
+  organization={IEEE}
+}
+
+% Lipschitz approximate the lower bound (RA problem)
+@inproceedings{zhang2023reachability,
+  title={Reachability analysis of neural network control systems},
+  author={Zhang, Chi and Ruan, Wenjie and Xu, Peipei},
+  booktitle={Proceedings of the AAAI Conference on Artificial Intelligence},
+  volume={37},
+  number={12},
+  pages={15287--15295},
+  year={2023}
+}
+
+% Polar
+@inproceedings{huang2022polar,
+  title={Polar: A polynomial arithmetic framework for verifying neural-network controlled systems},
+  author={Huang, Chao and Fan, Jiameng and Chen, Xin and Li, Wenchao and Zhu, Qi},
+  booktitle={International Symposium on Automated Technology for Verification and Analysis},
+  pages={414--430},
+  year={2022},
+  organization={Springer}
+}
+
+% Taming Zhang Min
+@inproceedings{tian2023taming,
+  title={Taming reachability analysis of dnn-controlled systems via abstraction-based training},
+  author={Tian, Jiaxu and Zhi, Dapeng and Liu, Si and Wang, Peixin and Katz, Guy and Zhang, Min},
+  booktitle={International Conference on Verification, Model Checking, and Abstract Interpretation},
+  pages={73--97},
+  year={2023},
+  organization={Springer}
+}
+
+% Verisig 2.0
+@inproceedings{ivanov2021verisig,
+  title={Verisig 2.0: Verification of neural network controllers using taylor model preconditioning},
+  author={Ivanov, Radoslav and Carpenter, Taylor and Weimer, James and Alur, Rajeev and Pappas, George and Lee, Insup},
+  booktitle={International Conference on Computer Aided Verification},
+  pages={249--262},
+  year={2021},
+  organization={Springer}
+}
+
+@inproceedings{sha2021synthesizing,
+  title={Synthesizing barrier certificates of neural network controlled continuous systems via approximations},
+  author={Sha, Meng and Chen, Xin and Ji, Yuzhe and Zhao, Qingye and Yang, Zhengfeng and Lin, Wang and Tang, Enyi and Chen, Qiguang and Li, Xuandong},
+  booktitle={2021 58th ACM/IEEE Design Automation Conference (DAC)},
+  pages={631--636},
+  year={2021},
+  organization={IEEE}
+}
+%%%%% 5 end %%%%%
+
+%%%%% 6 Lyapunov(ROA) verification & training %%%%%
+
+@article{dai2021lyapunov,
+  title={Lyapunov-stable neural-network control},
+  author={Dai, Hongkai and Landry, Benoit and Yang, Lujie and Pavone, Marco and Tedrake, Russ},
+  journal={arXiv preprint arXiv:2109.14152},
+  year={2021}
+}
+
+@article{wu2023neural,
+  title={Neural lyapunov control for discrete-time systems},
+  author={Wu, Junlin and Clark, Andrew and Kantaros, Yiannis and Vorobeychik, Yevgeniy},
+  journal={Advances in neural information processing systems},
+  volume={36},
+  pages={2939--2955},
+  year={2023}
+}
+
+% Lyapunov CROWN
+@inproceedings{yanglyapunov,
+  title={Lyapunov-stable Neural Control for State and Output Feedback: A Novel Formulation},
+  author={Yang, Lujie and Dai, Hongkai and Shi, Zhouxing and Hsieh, Cho-Jui and Tedrake, Russ and Zhang, Huan},
+  booktitle={Forty-first International Conference on Machine Learning}
+}
+
+% Lyapunov conditions
+@article{lyapunov1992general,
+  title={The general problem of the stability of motion},
+  author={Lyapunov, Aleksandr Mikhailovich},
+  journal={International journal of control},
+  volume={55},
+  number={3},
+  pages={531--534},
+  year={1992},
+  publisher={Taylor \& Francis}
+}
+%%%%% 6 end %%%%%
+
+%%%%% 7 application of discrete-time systems %%%%%
+
+@article{vidal1988implementing,
+  title={Implementing neural nets with programmable logic},
+  author={Vidal, Jacques J},
+  journal={IEEE Transactions on Acoustics, Speech, and Signal Processing},
+  volume={36},
+  number={7},
+  pages={1180--1190},
+  year={1988},
+  publisher={IEEE}
+}
+
+%%%%% 7 end %%%%%
+
+%%%%% 8 experiment task %%%%%
+
+% VNN-COMP 2024
+@article{brix2024fifth,
+  title={The Fifth International Verification of Neural Networks Competition (VNN-COMP 2024): Summary and Results},
+  author={Brix, Christopher and Bak, Stanley and Johnson, Taylor T and Wu, Haoze},
+  journal={arXiv preprint arXiv:2412.19985},
+  year={2024}
+}
+% path tarcking
+@article{snider2009automatic,
+  title={Automatic steering methods for autonomous automobile path tracking},
+  author={Snider, Jarrod M and others},
+  journal={Robotics Institute, Pittsburgh, PA, Tech. Rep. CMU-RITR-09-08},
+  year={2009}
+}
+
+% pendulum
+@article{mori1976control,
+  title={Control of unstable mechanical system control of pendulum},
+  author={Mori, Shozo and Nishihara, Hiroyoshi and Furuta, Katsuhisa},
+  journal={International Journal of Control},
+  volume={23},
+  number={5},
+  pages={673--692},
+  year={1976},
+  publisher={Taylor \& Francis}
+}
+
+% quadrotor 1 2
+@misc{sabatino2015quadrotor,
+  title={Quadrotor control: modeling, nonlinearcontrol design, and simulation},
+  author={Sabatino, Francesco},
+  year={2015}
+}
+
+@inproceedings{bouabdallah2007full,
+  title={Full control of a quadrotor},
+  author={Bouabdallah, Samir and Siegwart, Roland},
+  booktitle={2007 IEEE/RSJ international conference on intelligent robots and systems},
+  pages={153--158},
+  year={2007},
+  organization={Ieee}
+}
+
+
+%%%%% 8 end %%%%%
+
+%%%%% 9 ROA applications %%%%%
+
+% stability analysis
+@article{chakraborty2011nonlinear,
+  title={Nonlinear region of attraction analysis for flight control verification and validation},
+  author={Chakraborty, Abhijit and Seiler, Peter and Balas, Gary J},
+  journal={Control Engineering Practice},
+  volume={19},
+  number={4},
+  pages={335--345},
+  year={2011},
+  publisher={Elsevier}
+}
+
+@article{chen2014stability,
+  title={Stability analysis and region-of-attraction estimation using piecewise polynomial Lyapunov functions: Polynomial fuzzy model approach},
+  author={Chen, Ying-Jen and Tanaka, Motoyasu and Tanaka, Kazuo and Wang, Hua O},
+  journal={IEEE Transactions on Fuzzy Systems},
+  volume={23},
+  number={4},
+  pages={1314--1322},
+  year={2014},
+  publisher={IEEE}
+}
+
+% control design
+@article{korda2014controller,
+  title={Controller design and region of attraction estimation for nonlinear dynamical systems},
+  author={Korda, Milan and Henrion, Didier and Jones, Colin N},
+  journal={IFAC Proceedings Volumes},
+  volume={47},
+  number={3},
+  pages={2310--2316},
+  year={2014},
+  publisher={Elsevier}
+}
+
+@article{mauroy2016global,
+  title={Global stability analysis using the eigenfunctions of the Koopman operator},
+  author={Mauroy, Alexandre and Mezi{\'c}, Igor},
+  journal={IEEE Transactions on Automatic Control},
+  volume={61},
+  number={11},
+  pages={3356--3369},
+  year={2016},
+  publisher={IEEE}
+}
+%%%%% 9 end %%%%%
+
+%%%%% 10 derivative continuity & CDF %%%%%
+
+@article{ponce2007continuity,
+  title={The continuity of functions with N-th derivative measure},
+  author={Ponce, Augusto C and Van Schaftingen, Jean}
+}
+
+%  baire class 1 functions
+@article{kechris1990classification,
+  title={A classification of Baire class 1 functions},
+  author={Kechris, Alexander S and Louveau, Alain},
+  journal={Transactions of the american mathematical society},
+  volume={318},
+  number={1},
+  pages={209--236},
+  year={1990}
+}
+
+% Baire category theorem
+@article{de1963subcompactness,
+  title={Subcompactness and the Baire category theorem},
+  author={De Groot, J},
+  journal={Indag. Math},
+  volume={25},
+  pages={761--767},
+  year={1963}
+}
+
+% CDF
+@article{burr1942cumulative,
+  title={Cumulative frequency functions},
+  author={Burr, Irving W},
+  journal={The Annals of mathematical statistics},
+  volume={13},
+  number={2},
+  pages={215--232},
+  year={1942},
+  publisher={JSTOR}
+}
+
+% Fisher-Tippett-Gnedenko Theorem
+@article{smith1990extreme,
+  title={Extreme value theory},
+  author={Smith, Richard L},
+  journal={Handbook of applicable mathematics},
+  volume={7},
+  number={437-471},
+  pages={18},
+  year={1990},
+  publisher={Wiley Chichester}
+}
+
+@article{wood1996estimation,
+  title={Estimation of the Lipschitz constant of a function},
+  author={Wood, Graham R and Zhang, BP},
+  journal={Journal of Global Optimization},
+  volume={8},
+  pages={91--103},
+  year={1996},
+  publisher={Springer}
+}
+
+% KS test
+@article{massey1951kolmogorov,
+  title={The Kolmogorov-Smirnov test for goodness of fit},
+  author={Massey Jr, Frank J},
+  journal={Journal of the American statistical Association},
+  volume={46},
+  number={253},
+  pages={68--78},
+  year={1951},
+  publisher={Taylor \& Francis}
+}
+%%%%% 10 end %%%%%
+
+%%%%% 11 use of CLEVER in classification NNs %%%%%
+% training in loss function
+@article{silva2020opportunities,
+  title={Opportunities and challenges in deep learning adversarial robustness: A survey},
+  author={Silva, Samuel Henrique and Najafirad, Peyman},
+  journal={arXiv preprint arXiv:2007.00753},
+  year={2020}
+}
+
+@inproceedings{amini2021robust,
+  title={Robust learning of recurrent neural networks in presence of exogenous noise},
+  author={Amini, Arash and Liu, Guangyi and Motee, Nader},
+  booktitle={2021 60th IEEE Conference on Decision and Control (CDC)},
+  pages={783--788},
+  year={2021},
+  organization={IEEE}
+}
+
+@article{zhou2022adversarial,
+  title={Adversarial attacks and defenses in deep learning: From a perspective of cybersecurity},
+  author={Zhou, Shuai and Liu, Chi and Ye, Dayong and Zhu, Tianqing and Zhou, Wanlei and Yu, Philip S},
+  journal={ACM Computing Surveys},
+  volume={55},
+  number={8},
+  pages={1--39},
+  year={2022},
+  publisher={ACM New York, NY}
+}
+
+% Adversarial example detection
+@article{zuhlke2025adversarial,
+  title={Adversarial robustness of neural networks from the perspective of lipschitz calculus: A survey},
+  author={Z{\"u}hlke, Monty-Maximilian and Kudenko, Daniel},
+  journal={ACM Computing Surveys},
+  volume={57},
+  number={6},
+  pages={1--41},
+  year={2025},
+  publisher={ACM New York, NY}
+}
+
+% attack and defence tools
+
+% A2D
+@article{zhao2024attack,
+  title={Attack as detection: Using adversarial attack methods to detect abnormal examples},
+  author={Zhao, Zhe and Chen, Guangke and Liu, Tong and Li, Taishan and Song, Fu and Wang, Jingyi and Sun, Jun},
+  journal={ACM Transactions on Software Engineering and Methodology},
+  volume={33},
+  number={3},
+  pages={1--45},
+  year={2024},
+  publisher={ACM New York, NY, USA}
+}
+
+@article{bai2021recent,
+  title={Recent advances in adversarial training for adversarial robustness},
+  author={Bai, Tao and Luo, Jinqi and Zhao, Jun and Wen, Bihan and Wang, Qian},
+  journal={arXiv preprint arXiv:2102.01356},
+  year={2021}
+}
+%%%%% 11 end %%%%%
