@@ -8,7 +8,6 @@ matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 
 
-
 c_init = [0.1,0.5,1,5,10,20,50,100]
 plot_res = None
 
@@ -36,7 +35,11 @@ def plot_weibull(sample, c, loc, scale, ks, pVal, p, q, figname):
     plt.close()
 
 def fit_and_test(rescaled_sample, sample, loc_shift, shape_rescale, optimizer, c_i):
-    [c, loc, scale] = weibull_min.fit(-rescaled_sample, c_i, optimizer=optimizer)
+    try:
+        [c, loc, scale] = weibull_min.fit(-rescaled_sample, c_i, optimizer=optimizer)
+    except:
+        print(rescaled_sample)
+        [c, loc, scale] = weibull_min.fit(-rescaled_sample, c_i, optimizer=optimizer)
     # [loc, scale] = gumbel_l.fit(rescaled_sample, optimizer=optimizer)
     # [c, loc, scale] = genextreme.fit(rescaled_sample, c_i, optimizer=optimizer)
     #

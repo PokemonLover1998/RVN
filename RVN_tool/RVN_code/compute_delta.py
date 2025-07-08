@@ -67,17 +67,14 @@ class Delta_op:
                 # delta_op_list = []
 
                 pure_lyapunov = self.pure_lyapunov[self.idx_pure]
-                try:
-                    delta_op = (self.rho - pure_lyapunov) / self.loc
-                except:
-                    delta_op = (self.rho - pure_lyapunov.float()) / self.loc
+                delta_op = (self.rho - pure_lyapunov) / self.loc
                 delta_op = delta_op.tolist()
                 delta_op = delta_op[0]
                 print(f"The used max loc is {self.loc}.")
                 # delta_op_list.append(delta_op)
             else:
                 # delta_op_list = []
-                max_Lq = self.amax_Lq(self.L_majo)
+                max_Lq = self.amax_Lq(self.L_majo) # distinguish different samples with function amax_Lq()
 
                 pure_lyapunov = self.pure_lyapunov[self.idx_pure]
                 delta_op = (self.rho - pure_lyapunov) / max_Lq

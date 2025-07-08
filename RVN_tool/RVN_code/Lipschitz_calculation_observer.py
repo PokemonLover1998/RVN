@@ -6,6 +6,7 @@ from multiprocessing import Pool
 from functools import partial
 from sklearn.cluster import KMeans
 import arguments
+import random
 
 
 class LipschitzCalculation:
@@ -26,7 +27,7 @@ class LipschitzCalculation:
 
         self.perturbed_sample = []
         self.perturbed_lyapunov = []
-
+        self.eps_up = []
         self.L_q = [[0] * self.N_b for _ in range(self.pure_sample_count)]
         # the self.majo and self.mino will be added with a list like self.majo.append(List), the count of list is pure_sample_count
         self.majo = []
@@ -36,12 +37,9 @@ class LipschitzCalculation:
         self.reset_perturbed_samples()
         self.reset_pure_samples()
         # sample the prue input_sample x_0
-
         for i in range(self.pure_sample_count):
-            np.random.seed(2+i)
+            random.seed(22+i)
             self.x_pure_sample = (np.array([np.random.uniform(low, high) for low, high in self.specifications.Box]))
-
-
             self.x_pure_sample = torch.from_numpy(self.x_pure_sample).float()
             self.x_pure_sample = self.x_pure_sample.reshape(1,self.x_pure_sample.size()[0])
             self.x_pure_sample = self.x_pure_sample.detach()
@@ -58,14 +56,13 @@ class LipschitzCalculation:
         # self.calculate_prue_lyapunov()
 
         # for nb in range(self.N_b):
+        self.eps_up = self.find_eps()
         for count in range(self.pure_sample_count):
             x_pure_example = np.array(self.pure_sample[count])
-
-
             pure_info = self.calculation_lyapunov(x_pure_example)
-
             pure_state_t, pure_lyapunov_t = pure_info
             self.pure_lyapunov[count] = pure_lyapunov_t
+            arguments.Config.update_eps(self.eps_up[count])
             for nb in range(self.N_b):
                 self.reset_perturbed_samples()
                 # sample N_s perturbed samples around pure sample x_0
@@ -85,72 +82,77 @@ class LipschitzCalculation:
                     self.L_q[count][nb] = max(results)
 
             self.L_q[count]= list(filter(lambda x: x != 0, self.L_q[count]))
+
+        self.L_KM()
             # self.L_KM()
 
-    # def L_KM(self):
-    #     # 创建KMeans对象
-    #     n_clusters = 2
-    #     kmeans = KMeans(n_clusters=n_clusters)
-    #     cluster_point_list = []
-    #
-    #     # 对数据进行拟合
-    #     for i in range(self.pure_sample_count):
-    #         L = copy.deepcopy(self.L_q)
-    #         data = np.array(L[i])
-    #         standard_deviation = np.std(data,ddof=1)
-    #         data = data.reshape(-1, 1)
-    #         kmeans.fit(data)
-    #
-    #         # 获取聚类中心
-    #         cluster_center = kmeans.cluster_centers_
-    #
-    #         if (cluster_center.max() - cluster_center.min()) < standard_deviation:
-    #             self.majo.append(L)
-    #             self.mino.append([None])
-    #         else:
-    #         # 预测每个数据点的簇标签
-    #             labels = kmeans.predict(data)
-    #             label_counts = np.bincount(labels)
-    #             most_frequent_label = np.argmax(label_counts)
-    #             least_frequent_label = np.argmin(label_counts)
-    #             # 打印聚类中心
-    #             print("Cluster center:\n", cluster_center)
-    #             data_majo = data[labels == most_frequent_label]
-    #             self.majo.append(data_majo)
-    #             self.mino.append(np.setdiff1d(data, data[labels == most_frequent_label]))
-    #             # cluster_points = data[labels == most_frequent_label]
-    #             # cluster_point = np.amax(self.data)
-    #             # cluster_point = cluster_center[most_frequent_label]
-    #             # cluster_point_list.append(cluster_point)
-    #
-    #             # L = copy.deepcopy(self.majo[i])
-    #             # data = np.array(L)
-    #             #
-    #             # data = data.reshape(-1, 1)
-    #             # kmeans.fit(data)
-    #             #
-    #             # # 获取聚类中心
-    #             # cluster_center = kmeans.cluster_centers_
-    #             #
-    #             #
-    #             # # 预测每个数据点的簇标签
-    #             # labels = kmeans.predict(data)
-    #             # label_counts = np.bincount(labels)
-    #             # most_frequent_label = np.argmax(label_counts)
-    #             # least_frequent_label = np.argmin(label_counts)
-    #             # # 打印聚类中心
-    #             # print("Cluster center:\n", cluster_center)
-    #             #
-    #             # self.majo[i] = data[labels == most_frequent_label]
-    #
-    #             # cluster_points = data[labels == most_frequent_label]
-    #             # cluster_point = np.amax(self.data)
-    #             # cluster_point = cluster_center[most_frequent_label]
-    #             # cluster_point_list.append(cluster_point)
-    #
-    #
-    #
-    #         # self.L_q[count] = self.L_KM(self.L_q[count])
+    def L_KM(self):
+        # 创建KMeans对象
+        n_clusters = 2
+        kmeans = KMeans(n_clusters=n_clusters)
+        cluster_point_list = []
+
+        # 对数据进行拟合
+        for i in range(self.pure_sample_count):
+            L = copy.deepcopy(self.L_q)
+            data = np.array(L[i])
+            standard_deviation = np.std(data,ddof=1)
+            data = data.reshape(-1, 1)
+            kmeans.fit(data)
+
+            # 获取聚类中心
+            cluster_center = kmeans.cluster_centers_
+
+            if (cluster_center.max() - cluster_center.min()) < 0.001 or n_clusters == 1:
+                self.majo.append(data)
+
+            else:
+            # 预测每个数据点的簇标签
+                labels = kmeans.predict(data)
+                label_counts = np.bincount(labels)
+                most_frequent_label = np.argmax(label_counts)
+                least_frequent_label = np.argmin(label_counts)
+                # 打印聚类中心
+                print("Cluster center:\n", cluster_center)
+                data_majo = data[labels == most_frequent_label]
+                self.majo.append(data_majo)
+                # mino_array = np.setdiff1d(data, data[labels == most_frequent_label])
+                # self.mino.append([i] for i in mino_array)
+                data_mino = data[labels != most_frequent_label]
+                self.mino.append(data_mino)
+                # cluster_points = data[labels == most_frequent_label]
+                # cluster_point = np.amax(self.data)
+                # cluster_point = cluster_center[most_frequent_label]
+                # cluster_point_list.append(cluster_point)
+
+                # L = copy.deepcopy(self.majo[i])
+                # data = np.array(L)
+                #
+                # data = data.reshape(-1, 1)
+                # kmeans.fit(data)
+                #
+                # # 获取聚类中心
+                # cluster_center = kmeans.cluster_centers_
+                #
+                #
+                # # 预测每个数据点的簇标签
+                # labels = kmeans.predict(data)
+                # label_counts = np.bincount(labels)
+                # most_frequent_label = np.argmax(label_counts)
+                # least_frequent_label = np.argmin(label_counts)
+                # # 打印聚类中心
+                # print("Cluster center:\n", cluster_center)
+                #
+                # self.majo[i] = data[labels == most_frequent_label]
+
+                # cluster_points = data[labels == most_frequent_label]
+                # cluster_point = np.amax(self.data)
+                # cluster_point = cluster_center[most_frequent_label]
+                # cluster_point_list.append(cluster_point)
+
+
+
+            # self.L_q[count] = self.L_KM(self.L_q[count])
 
     def calculation_lyapunov(self, xe_0):
         self.model.torch2state(xe_0)
@@ -164,7 +166,7 @@ class LipschitzCalculation:
         pure_state_t, pure_lyapunov_t = pure_info
         pure_lyapunov_t = pure_lyapunov_t.detach()
         norm = float(self.specifications.norm)
-        epsilon = float(self.specifications.epsilon)
+        # epsilon = arguments.Config['rvn_setting']['epsilon']
         N_s = int(self.N_s)
         step = float(self.model.dynamics.dt)
         goal_state = self.model.lyapunov.goal_state.detach()
@@ -178,10 +180,15 @@ class LipschitzCalculation:
         rho = float(self.specifications.rho)
         nx = int(self.model.nx)
         x_pure_example = self.pure_sample[count]
-        np.random.seed(35+nb)
-        random_perturbations = np.random.uniform(-epsilon, epsilon, (N_s, 1))
-        perturbed_samples = x_pure_example + random_perturbations.reshape(-1,1)
+        # random_perturbations = np.random.uniform(-epsilon, epsilon, (N_s, 1))
+        # perturbed_samples = x_pure_example + random_perturbations.reshape(-1,1)
         Box = copy.deepcopy(self.specifications.Box)
+
+        samples = [np.random.uniform(low, high, size=N_s) for low, high in Box]
+        # samples = [np.random.beta(low, high, size=N_s) for low, high in Box]
+        samples_array = np.array(samples).T
+        perturbed_samples = torch.tensor(samples_array, device='cpu')
+
         x_pure_example = torch2state(x_pure_example, x_pure_example.size()[-1])
 
         with Pool(processes=15, maxtasksperchild=10) as pool:
@@ -195,6 +202,20 @@ class LipschitzCalculation:
         res = list(filter(lambda x: x != 0, res))
         # res is L_q list
         return res
+
+    def find_eps(self):
+        max_corner = np.asarray([max(a) for a in self.specifications.Box])
+        min_corner = np.asarray([min(a) for a in self.specifications.Box])
+        eps_up_list = []
+        for point in self.pure_sample:
+            point = point.detach().numpy()
+            dist_to_min = point - min_corner
+            dist_to_max = max_corner - point
+            min_distances = np.minimum(dist_to_min, dist_to_max)
+            eps_up = np.min(min_distances)
+            eps_up_list.append(eps_up)
+
+        return eps_up_list
 
     def reset_pure_samples(self):
         self.pure_sample = []

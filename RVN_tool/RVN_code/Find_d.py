@@ -75,3 +75,18 @@ def find_min_distance(x_list,model,rho):
             L_list.append(min_distance)
 
     return L_list
+
+def find_eps_up(x_list,Box):
+
+    max_corner = np.asarray([max(a) for a in Box])
+    min_corner = np.asarray([min(a) for a in Box])
+    eps_up_list = []
+    for point in x_list:
+        point = point.detach().numpy()
+        dist_to_min = point - min_corner
+        dist_to_max = max_corner - point
+        min_distances = np.minimum(dist_to_min, dist_to_max)
+        eps_up = np.min(min_distances)
+        eps_up_list.append(eps_up)
+
+    return eps_up_list
