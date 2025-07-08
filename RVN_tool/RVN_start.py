@@ -100,10 +100,10 @@ class RVN:
         # from RVN_code.Find_d import find_min_distance
         # d = find_min_distance(x_d, model_ori.lyapunov.R.data.detach().numpy(), model_ori.lyapunov(x))
         # construct the model for RVN
-        eps_up = torch.norm(
-            torch.tensor([x[-1] for x in rvn_specification.Box], dtype=torch.float32).reshape((1, -1)),
-            p=arguments.Config['specification']['norm']).item()
-        arguments.Config.update_eps(eps_up/2)
+        # eps_up = torch.norm(
+        #     torch.tensor([x[-1] for x in rvn_specification.Box], dtype=torch.float32).reshape((1, -1)),
+        #     p=arguments.Config['specification']['norm']).item()
+        # arguments.Config.update_eps(eps_up/2)
         if hasattr(model_ori, 'observer') is False:
             from RVN_code.RVN_calculation import RVN_cal
             from RVN_code.Lipschitz_calculation import LipschitzCalculation
@@ -120,36 +120,43 @@ class RVN:
             # compute the delta between prue and perturbed Lyapunov, and / their delta(sample)
             # with the 'controller' and 'dynamics' in 'rvn_model'
             L_calculation.sample_pure_and_compute_Lq()
-            end_time = time.time()
-            from RVN_code.Find_d import find_min_distance
+            # detect the eps_up and L robustness evaluation
+            from RVN_code.Find_d import find_min_distance, find_eps_up
             L_list = find_min_distance(L_calculation.pure_sample, model_ori,rvn_specification.rho)
+            eps_up_list = find_eps_up(L_calculation.pure_sample, rvn_specification.Box)
             # d_last = float('inf')
             delta_count_list = []
             for i in range(L_calculation.pure_sample_count):
-
+                eps_up = eps_up_list[i]
+                arguments.Config.update_eps(eps_up_list[i])
                 # ks_dict_majo = get_lipschitz_estimate(L_calculation.majo[i], 'Fig_Majority')
                 ks_dict_majo = get_lipschitz_estimate(L_calculation.L_q[i], 'Fig_Majority')
-                loc = -float(ks_dict_majo['loc'])
-                pval = float(ks_dict_majo['pVal'])
-                # d_op_majo = Delta_op(L_calculation, L_calculation.majo[i], None, rvn_specification, loc, pval, i)
-                d_l = Delta_op(L_calculation, L_calculation.L_q[i], None, rvn_specification, loc, pval, i)
-                d_op = d_l.delta[0]
-                # the following is calculation delta for mino groups
-                # if len(L_calculation.mino[i]) > 0:
-                #     ks_dict_mino = get_lipschitz_estimate(L_calculation.mino[i], 'Fig_Minority')
-                #     loc = -float(ks_dict_mino['loc'])
-                #     pval = float(ks_dict_mino['pVal'])
-                #     d_op_mino = Delta_op(L_calculation, None, L_calculation.mino[i], rvn_specification, loc,
-                #                          pval, i)
-                #     d_op = min(d_op_majo.delta[0], d_op_mino.delta[0])
-                # else:
-                #     d_op = d_op_majo.delta[0]
+                loc_majo = -float(ks_dict_majo['loc'])
+                pval_majo = float(ks_dict_majo['pVal'])
+                d_l_majo = Delta_op(L_calculation, L_calculation.L_q[i], None, rvn_specification, loc_majo, pval_majo, i)
+                d_op_majo = d_l_majo.delta[0]
+                # d_l = Delta_op(L_calculation, L_calculation.L_q[i], None, rvn_specification, loc, pval, i)
+                # d_op = d_l.delta[0]
 
-                # d_op = min(d_op, d_last)
+                # the following is calculation delta for mino groups
+                if L_calculation.mino[i][0] is not None:
+                    ks_dict_mino = get_lipschitz_estimate(L_calculation.mino[i], 'Fig_Minority')
+                    loc = -float(ks_dict_mino['loc'])
+                    pval = float(ks_dict_mino['pVal'])
+                    d_l_mino = Delta_op(L_calculation, None, L_calculation.mino[i], rvn_specification, loc,
+                                         pval, i)
+                    d_op_mino = d_l_mino.delta[0]
+                else:
+                    d_op_mino = 0
+
+                d_op = max(d_op_mino, d_op_majo)
+                # d_op = min(d_op,d_last)
                 # d_last = d_op
-                delta_count_list.append(min(d_op,eps_up))
+                delta_count_list.append(min(d_op, eps_up))
                 print(f'The min delta is {d_op} for the {i}-th sample.')
 
+
+            end_time = time.time()
             framework_list = [max(a,b) for a,b in zip(delta_count_list, L_list)]
             mean_d = sum(framework_list) / arguments.Config["rvn_setting"]["pure_sample_count"]
             zero_L_record = 0
@@ -164,10 +171,10 @@ class RVN:
             L_calculation.reset_L_q()
             cloud_point(delta_count_list, L_list)
 
-            from attack.attack_with_REN import REN_attack
-            REN_attack(L_calculation.pure_sample, framework_list, vnnlib, model_ori, rvn_specification.Box,eps_up)
-            attack_time = time.time()
-            print(f'The total time of attack[REN] is {attack_time - start_time}.')
+            # from attack.attack_with_REN import REN_attack
+            # REN_attack(L_calculation.pure_sample, framework_list, vnnlib, model_ori, rvn_specification.Box,eps_up)
+            # attack_time = time.time()
+            # print(f'The total time of attack[REN] is {attack_time - start_time}.')
             print(f'The total time of REN is {end_time - start_time}.')
             print(f"The mean delta in REN framework is {mean_d}")
             print(f"There are {zero_L_record} samples cannot be dealt with by L, {delta_over_L} REN over L.")
@@ -186,24 +193,44 @@ class RVN:
             # arguments.Config["rvn_setting"]["N_b"], arguments.Config["rvn_setting"]["N_s"],
             # arguments.Config["rvn_setting"]["steps"]
             L_calculation_obs.sample_pure_and_compute_Lq()
-            end_time = time.time()
-            from RVN_code.Find_d import find_min_distance
-            L_list = find_min_distance(L_calculation_obs.pure_sample, model_ori,rvn_specification.rho)
+
+            from RVN_code.Find_d import find_min_distance, find_eps_up
+            L_list = find_min_distance(L_calculation_obs.pure_sample, model_ori, rvn_specification.rho)
+            eps_up_list = find_eps_up(L_calculation_obs.pure_sample, rvn_specification.Box)
             # ks_dict = get_lipschitz_estimate(L_calculation_obs.L_q[0])
             # d_last = 100
             delta_count_list = []
             for i in range(L_calculation_obs.pure_sample_count):
-                ks_dict_majo = get_lipschitz_estimate(L_calculation_obs.L_q[i], 'Fig_Majority')
-                loc = -float(ks_dict_majo['loc'])
-                pval = float(ks_dict_majo['pVal'])
+                eps_up = eps_up_list[i]
+                arguments.Config.update_eps(eps_up_list[i])
+
+                ks_dict_majo = get_lipschitz_estimate(L_calculation_obs.majo[i], 'Fig_Majority')
+                loc_majo = -float(ks_dict_majo['loc'])
+                pval_majo = float(ks_dict_majo['pVal'])
                 # d_op_majo = Delta_op(L_calculation, L_calculation.majo[i], None, rvn_specification, loc, pval, i)
-                d_l = Delta_op(L_calculation_obs, L_calculation_obs.L_q[i], None, rvn_specification, loc, pval, i)
-                d_op = d_l.delta[0]
+                d_l_majo = Delta_op(L_calculation_obs, L_calculation_obs.L_q[i], None, rvn_specification, loc_majo, pval_majo, i)
+                d_op_majo = d_l_majo.delta[0]
+
+                # print(L_calculation_obs.mino[i])
+                # if not(L_calculation_obs.mino[i] == 0).all():
+                # if not all((x == [0] or x == 0) for x in L_calculation_obs.mino[i]):
+                if L_calculation_obs.mino[i][0] is not None:
+                    # d_op_majo = Delta_op(L_calculation, L_calculation.majo[i], None, rvn_specification, loc, pval, i)
+                    ks_dict_mino = get_lipschitz_estimate(L_calculation_obs.mino[i], 'Fig_Minority')
+                    loc_mino = -float(ks_dict_mino['loc'])
+                    pval_mino= float(ks_dict_mino['pVal'])
+                    d_l_mino = Delta_op(L_calculation_obs, L_calculation_obs.mino[i], None, rvn_specification, loc_mino,
+                                        pval_mino, i)
+                    d_op_mino = d_l_mino.delta[0]
+                else:
+                    d_op_mino = 0
+
+                d_op = max(d_op_mino, d_op_majo)
                 # d_op = min(d_op,d_last)
                 # d_last = d_op
                 delta_count_list.append(min(d_op,eps_up))
                 print(f'The min delta is {d_op} for the {i}-th sample.')
-
+            end_time = time.time()
             framework_list = [max(a, b) for a, b in zip(delta_count_list, L_list)]
             mean_d = sum(framework_list) / arguments.Config["rvn_setting"]["pure_sample_count"]
             zero_L_record = 0
@@ -218,10 +245,10 @@ class RVN:
             L_calculation_obs.reset_L_q()
 
             cloud_point(delta_count_list, L_list)
-            from attack.attack_with_REN import REN_attack
-            REN_attack(L_calculation_obs.pure_sample, framework_list, vnnlib, model_ori, rvn_specification.Box,eps_up)
-            attack_time = time.time()
-            print(f'The total time of attack[REN] is {attack_time - start_time}.')
+            # from attack.attack_with_REN import REN_attack
+            # REN_attack(L_calculation_obs.pure_sample, framework_list, vnnlib, model_ori, rvn_specification.Box,eps_up)
+            # attack_time = time.time()
+            # print(f'The total time of attack[REN] is {attack_time - start_time}.')
             print(f'The total time of REN is {end_time - start_time}.')
             print(f"The mean delta in REN framework is {mean_d}")
             print(f"There are {zero_L_record} samples cannot be dealt with by L, {delta_over_L} REN over L.")
@@ -258,7 +285,7 @@ def cloud_point(list1, list2):
 if __name__ == '__main__':
     # ['abcrown.py', '--config', '/home/txz/RVN_tool/verification/pendulum_output_feedback_lyapunov_in_levelset.yaml'], sys.argv = ['abcrown.py', '--config', '/home/txz/Lyapunov_Stable_NN_Controllers-main/verification/path_tracking_state_feedback_lyapunov_in_levelset.yaml']
     path_list = [
-                 ['abcrown.py', '--config', '/home/txz/RVN_tool/verification/path_tracking_state_feedback_lyapunov_small_torque_in_levelset.yaml']]
+                 ['abcrown.py', '--config', '/home/txz/RVN_tool/verification/pendulum_state_feedback_lyapunov_in_levelset.yaml']]
 
     d_op_filelist = []
     for arg in path_list:
