@@ -5,7 +5,7 @@
 Create a conda environment and install the dependencies except those for verification:
 ```bash
 conda create --name lnc python=3.11
-conda activate lnc
+conda activate ren
 pip install -r requirements.txt
 ```
 
