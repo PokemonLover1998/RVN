@@ -829,13 +829,13 @@ class ConfigHandler:
                           hierarchy=h + ["max_num_domains"])
 
         h = ["rvn_setting"]
-        self.add_argument('--pure_sample_count', type=int, default=1,
+        self.add_argument('--pure_sample_count', type=int, default=100,
                           help="The amount of pure_samples tested by RVN and attack.",
                           hierarchy=h + ["pure_sample_count"])
-        self.add_argument('--Batch_amount_nb', type=int, default=1000,
+        self.add_argument('--Batch_amount_nb', type=int, default=100,
                           help="The amount of the batches, RVN finally find delta among N_b values.",
                           hierarchy=h + ['N_b'])
-        self.add_argument('--perturbed_amount_ns', type=int, default=500,
+        self.add_argument('--perturbed_amount_ns', type=int, default=100,
                           help="The amount of the p-norm perturbed samples around pure samples, "
                                "N_s samples generate the value of one batch.",
                           hierarchy=h + ['N_s'])
